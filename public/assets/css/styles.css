@@ -1,4 +1,6 @@
-/* Capibara Music — Estilo claro minimalista (inspiración: Quesoni / Yonobi / BridalBliss) */
+html, body { display:block !important; visibility:visible !important; opacity:1 !important; }
+* { opacity:1 !important; visibility:visible !important; }
+
 
 :root{
   --bg: #fbfbf8;
@@ -174,3 +176,4 @@ footer{
   justify-content: space-between;
   align-items: center;
 }
+
