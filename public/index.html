@@ -2,118 +2,394 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Capibara Music — Asociación :contentReference[oaicite:6]{index=6}eta name="description" content="Capibara Music es una asociación cultural sin ánimo de lucro con sede en Barcelona. Impulsamos proyectos con mirada intercultural y migrante en Europa." />
-  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Capibara Music</title>
+
+  <!-- Tipografías (aprox. visual del PDF): Sans para títulos/nav + Serif para texto largo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Cormorant+Garamond:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --text: #0b0b0b;
+      --muted: #222;
+      --green: #00A650; /* extraído del bloque verde del PDF */
+      --container: 1080px;
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+    body{
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-family: "Cormorant Garamond", serif;
+    }
+
+    /* ====== NAV ====== */
+    .nav{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg);
+    }
+    .nav-inner{
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 22px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+      min-width: 120px;
+    }
+    .brand img{
+      width: 34px;
+      height: 34px;
+      display: block;
+    }
+
+    .menu{
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #111;
+      letter-spacing: 0.2px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .menu a{
+      text-decoration: none;
+      color: inherit;
+      padding: 6px 2px;
+    }
+    .menu a:hover{ opacity: .75; }
+
+    .lang{
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      min-width: 120px;
+      justify-content: flex-end;
+    }
+    .pill{
+      border: 1px solid rgba(0,166,80,.35);
+      color: #111;
+      background: #fff;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      line-height: 1;
+    }
+
+    /* ====== LAYOUT ====== */
+    section{
+      scroll-margin-top: 92px;
+    }
+    .container{
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 22px;
+    }
+
+    /* ====== HERO ====== */
+    .hero{
+      padding: 64px 0 36px;
+      text-align: center;
+    }
+    .hero h1{
+      margin: 48px 0 14px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: clamp(48px, 6.2vw, 78px);
+      letter-spacing: -0.5px;
+    }
+    .hero .subline{
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: clamp(18px, 2.7vw, 34px);
+      letter-spacing: 1px;
+      color: #111;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin: 0;
+    }
+    .hero .bar{
+      display: inline-block;
+      width: 6px;
+      height: 32px;
+      background: var(--green);
+      transform: translateY(2px);
+    }
+
+    /* ====== GREEN STRIP ====== */
+    .strip{
+      background: var(--green);
+      color: #0a0a0a; /* en el PDF el texto se ve oscuro */
+      padding: 34px 0;
+      margin: 28px 0 0;
+    }
+    .strip p{
+      margin: 0;
+      text-align: center;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+      font-size: clamp(16px, 2.1vw, 24px);
+      letter-spacing: 0.2px;
+    }
+
+    /* ====== MANIFESTO ====== */
+    .manifesto{
+      padding: 52px 0 26px;
+      text-align: center;
+    }
+    .manifesto p{
+      margin: 0 auto;
+      max-width: 920px;
+      font-size: clamp(18px, 2vw, 24px);
+      line-height: 1.45;
+      color: #111;
+    }
+    .seal{
+      padding: 28px 0 18px;
+      display: grid;
+      place-items: center;
+      gap: 10px;
+    }
+    .seal img{
+      width: min(320px, 70vw);
+      height: auto;
+      display: block;
+    }
+    .seal .caption{
+      font-family: "Montserrat", sans-serif;
+      letter-spacing: 3px;
+      text-transform: lowercase;
+      font-size: 18px;
+      color: #111;
+    }
+
+    .manifesto .p2{
+      margin-top: 18px;
+    }
+
+    /* ====== SERVICES ====== */
+    .services{
+      padding: 26px 0 96px;
+    }
+    .services h2{
+      text-align: center;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: clamp(34px, 4.2vw, 56px);
+      margin: 28px 0 40px;
+      letter-spacing: -0.3px;
+    }
+
+    .grid{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 34px 80px;
+      max-width: 980px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    .item{
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+    .item img{
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+      display: block;
+    }
+    .item p{
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      color: #111;
+      font-weight: 600;
+    }
+
+    /* ====== FOOTER SPACING (para que el scroll se sienta como “página larga”) ====== */
+    .spacer{
+      height: 40px;
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 860px){
+      .menu{ gap: 18px; }
+      .grid{
+        grid-template-columns: 1fr;
+        gap: 22px;
+        padding: 0 6px;
+      }
+      .item{
+        grid-template-columns: 66px 1fr;
+      }
+      .item img{
+        width: 66px;
+        height: 66px;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <!-- NAV -->
+  <header class="nav" aria-label="Navegación principal">
+    <div class="nav-inner">
+      <a class="brand" href="#inicio" aria-label="Capibara Music - Inicio">
+        <img src="assets/logo-capibara-negro.svg" alt="Capibara Music" />
+      </a>
 
-<header>
-  <div class="wrap header-row">
-    <a class="brand" href="#inicio">Capibara Music</a>
-    <nav class="nav" aria-label="Navegación principal">
-      <a href="#inicio">Inicio</a>
-      <a href="#asociacion">Asociación</a>
-      <a href="#que-hacemos">Qué hacemos</a>
-      <a href="#proyectos">Proyectos</a>
-      <a href="#contacto">Contacto</a>
-      <a href="/en/" title="English">EN</a>
-    </nav>
-  </div>
-</header>
+      <nav class="menu" aria-label="Menú">
+        <a href="#inicio">Inicio</a>
+        <a href="#asociacion">Asociación</a>
+        <a href="#que-hacemos">Qué Hacemos</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
 
-<main>
-
-  <section id="inicio">
-    <div class="wrap">
-      <p class="kicker">Cultura · Música · Asociación</p>
-      <h1>Impulsamos proyectos con mirada intercultural y migrante en Europa.</h1>
-      <p class="lead">
-        Capibara Music es una asociación cultural sin ánimo de lucro con sede en Barcelona dedicada a la promoción,
-        difusión y fortalecimiento de proyectos musicales y culturales, con especial atención a las músicas de raíz,
-        las prácticas contemporáneas y los procesos culturales impulsados desde contextos migrantes.
-      </p>
-
-      <div class="actions">
-        <a class="btn primary" href="#contacto">Contactar</a>
-        <a class="btn" href="/servicios/">Servicios</a>
-        <a class="btn" href="/servicios/kit-fiscal/">Kit fiscal</a>
+      <div class="lang" aria-label="Idiomas">
+        <a class="pill" href="#" aria-label="Español">ES</a>
+        <a class="pill" href="#" aria-label="English">EN</a>
       </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="inicio" class="hero">
+    <div class="container">
+      <h1>Capibara Music</h1>
+
+      <p class="subline" aria-label="Cultura Música Asociación">
+        CULTURA <span class="bar" aria-hidden="true"></span>
+        MÚSICA <span class="bar" aria-hidden="true"></span>
+        ASOCIACIÓN
+      </p>
     </div>
   </section>
 
-  <section id="asociacion">
-    <div class="wrap">
-      <h2>Asociación</h2>
+  <!-- STRIP -->
+  <section class="strip" aria-label="Declaración principal">
+    <div class="container">
+      <p>Impulsamos proyectos con mirada intercultural y migrante en Europa</p>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section id="asociacion" class="manifesto">
+    <div class="container">
       <p>
+        Capibara Music es una asociación cultural sin ánimo de lucro con sede en Barcelona
+        dedicada a la promoción, difusión y fortalecimiento de proyectos musicales y
+        culturales, con especial atención a las músicas de raíz, las prácticas contemporáneas
+        y los procesos culturales impulsados desde contextos migrantes.
+      </p>
+
+      <div class="seal" aria-label="Sello Capibara Music">
+        <img src="assets/capibara-sello.svg" alt="Capibara Music" />
+        <div class="caption">capibara music</div>
+      </div>
+
+      <p class="p2">
         Trabajamos para contribuir a un ecosistema cultural más diverso, justo y profesionalizado,
-        generando espacios de visibilidad, circulación y desarrollo para iniciativas con valor artístico, social y cultural.
-      </p>
-      <div class="actions">
-        <a class="btn" href="/asociacion/">Leer más</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="que-hacemos">
-    <div class="wrap">
-      <h2>Qué hacemos</h2>
-
-      <div class="grid">
-        <div class="col6"><div class="card"><h3>Desarrollo y acompañamiento</h3><p>de proyectos musicales</p></div></div>
-        <div class="col6"><div class="card"><h3>Producción</h3><p>de conciertos, ciclos y acciones en vivo</p></div></div>
-
-        <div class="col6"><div class="card"><h3>Producción audiovisual</h3><p>y contenidos culturales</p></div></div>
-        <div class="col6"><div class="card"><h3>Educación y mediación</h3><p>proyectos educativos y de mediación cultural</p></div></div>
-
-        <div class="col6"><div class="card"><h3>Programación especializada</h3><p>en diversidad cultural</p></div></div>
-        <div class="col6"><div class="card"><h3>Circulación y redes</h3><p>redes y espacios profesionales</p></div></div>
-      </div>
-
-      <div class="actions" style="margin-top:18px">
-        <a class="btn" href="/servicios/">Ver servicios</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="proyectos">
-    <div class="wrap">
-      <h2>Proyectos</h2>
-      <p>
-        Desarrollamos líneas propias y colaborativas orientadas a la circulación, la visibilidad y la profesionalización.
-      </p>
-      <div class="actions">
-        <a class="btn" href="/proyectos/">Ver proyectos</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="contacto">
-    <div class="wrap">
-      <h2>Contacto</h2>
-      <p>
-        Escríbenos para colaboraciones, programación, alianzas o información sobre servicios.
-      </p>
-      <div class="actions">
-        <a class="btn primary" href="/contacto/">Ir a contacto</a>
-      </div>
-      <p style="margin-top:12px" class="lead">
-        Consejo: usa el formulario o el email que figura en la página de contacto para que podamos responder con rapidez.
+        generando espacios de visibilidad, circulación y desarrollo para iniciativas con valor
+        artístico, social y cultural.
       </p>
     </div>
   </section>
 
-</main>
+  <!-- SERVICES -->
+  <section id="que-hacemos" class="services">
+    <div class="container">
+      <h2>Qué Hacemos</h2>
 
-<footer>
-  <div class="wrap footer-row">
-    <div>© Capibara Music · Barcelona</div>
-    <div>
-      <a href="/legal/">Legal</a> · <a href="/en/">English</a>
+      <div class="grid" role="list">
+        <div class="item" role="listitem">
+          <img src="assets/qh-1.svg" alt="" aria-hidden="true" />
+          <p>Diseño de programación especializada en diversidad cultural</p>
+        </div>
+
+        <div class="item" role="listitem">
+          <img src="assets/qh-2.svg" alt="" aria-hidden="true" />
+          <p>Desarrollo y acompañamiento de proyectos musicales</p>
+        </div>
+
+        <div class="item" role="listitem">
+          <img src="assets/qh-3.svg" alt="" aria-hidden="true" />
+          <p>Producción audiovisual y contenidos culturales</p>
+        </div>
+
+        <div class="item" role="listitem">
+          <img src="assets/qh-4.svg" alt="" aria-hidden="true" />
+          <p>Circulación, Redes y espacios profesionales</p>
+        </div>
+
+        <div class="item" role="listitem">
+          <img src="assets/qh-5.svg" alt="" aria-hidden="true" />
+          <p>Producción de conciertos, ciclos y acciones en vivo</p>
+        </div>
+
+        <div class="item" role="listitem">
+          <img src="assets/qh-6.svg" alt="" aria-hidden="true" />
+          <p>Proyectos educativos y de mediación cultural</p>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
     </div>
-  </div>
-</footer>
+  </section>
 
+  <!-- Placeholder para las siguientes secciones del one-page -->
+  <section id="proyectos" class="container" style="padding: 60px 22px 120px; text-align:center;">
+    <h2 style="font-family:Montserrat,sans-serif;font-weight:800;font-size:40px;margin:0 0 10px;">Proyectos</h2>
+    <p style="margin:0;font-size:22px;">(Siguiente bloque del scroll)</p>
+  </section>
+
+  <section id="contacto" class="container" style="padding: 60px 22px 120px; text-align:center;">
+    <h2 style="font-family:Montserrat,sans-serif;font-weight:800;font-size:40px;margin:0 0 10px;">Contacto</h2>
+    <p style="margin:0;font-size:22px;">(Siguiente bloque del scroll)</p>
+  </section>
+
+  <script>
+    // Scroll suave al hacer click en el menú (one-page)
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        const el = document.querySelector(id);
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
 </body>
 </html>
