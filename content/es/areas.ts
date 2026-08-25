@@ -36,7 +36,7 @@ const areas = {
         "App de Programación de salas",
         "Pilotos con organizaciones",
       ],
-      cta: { label: "Prueba nuestras App" },
+      cta: { label: "Prueba nuestras App (Próximamente)" },
     },
   ],
 } satisfies AreasContent;

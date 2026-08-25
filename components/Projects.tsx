@@ -4,6 +4,19 @@ import { useState } from "react";
 import { projectDefinitions } from "../content/projects";
 import { useLocale } from "./LocaleProvider";
 
+function ProjectImage({ src }: { src: string }) {
+  return (
+    <div className="m-0 w-full self-center overflow-hidden border-0 bg-transparent p-0 outline-0 md:col-start-3">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt=""
+        className="m-0 block h-auto w-full max-w-none border-0 bg-transparent p-0 outline-0"
+      />
+    </div>
+  );
+}
+
 export default function Projects() {
   const [selectedProjectId, setSelectedProjectId] = useState<string>(
     projectDefinitions[0].id,
@@ -16,6 +29,7 @@ export default function Projects() {
     projectDefinitions.find((project) => project.id === selectedProjectId) ??
     projectDefinitions[0];
   const selectedProjectTitle = projects.titles[selectedProject.id];
+  const selectedProjectContent = projects.details[selectedProject.id];
 
   function openProject(projectId: string) {
     setSelectedProjectId(projectId);
@@ -87,23 +101,26 @@ export default function Projects() {
               ×
             </button>
 
-            <div className="grid gap-8 pr-10 md:grid-cols-[1fr_1.25fr] md:gap-12">
+            <div className="grid gap-8 pr-10 md:grid-cols-[minmax(0,58fr)_minmax(0,15fr)_minmax(0,27fr)] md:gap-0">
               <div>
                 <h3 className="type-feature-title m-0">
                   {selectedProjectTitle}
                 </h3>
                 <p className="type-body-small mt-6 max-w-xl text-[#666]">
-                  {projects.placeholderText}
+                  {selectedProjectContent.description}
                 </p>
 
-                <div className="type-section-label mt-10 border-t border-[#DDD] pt-4 text-[#888]">
-                  {projects.linksLabel}
-                </div>
+                <a
+                  href={selectedProject.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="type-text-link mt-10 inline-block border-t border-[#DDD] pt-4 underline-offset-4 hover:underline focus-visible:underline"
+                >
+                  {selectedProjectContent.ctaLabel}
+                </a>
               </div>
 
-              <div className="type-placeholder flex min-h-52 items-center justify-center border border-dashed border-[#BDBDBD] text-[#888]">
-                {projects.imageLabel}
-              </div>
+              <ProjectImage src={selectedProject.image} />
             </div>
           </article>
         </div>

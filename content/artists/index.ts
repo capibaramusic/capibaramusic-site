@@ -3,7 +3,7 @@ import { choloChicha } from "./cholo-chicha";
 import { fedeRochaProject } from "./fede-rocha-project";
 import { kumbiaBoruka } from "./kumbia-boruka";
 import { laDameBlanche } from "./la-dame-blanche";
-import { musicasMigrantes } from "./musicas-migrantes";
+import { niemNitai } from "./niem-nitai";
 
 // Artistas activos y orden de aparición en el Roster.
 // Para retirar un artista, elimina o comenta únicamente su entrada en este array.
@@ -13,7 +13,7 @@ export const artists = [
   laDameBlanche,
   kumbiaBoruka,
   fedeRochaProject,
-  musicasMigrantes,
+  niemNitai,
 ] as const;
 
 export type {

@@ -48,10 +48,14 @@ export type ProjectsContent = {
   heading: readonly [string, string];
   selectionLabel: string;
   closeLabel: string;
-  placeholderText: string;
-  linksLabel: string;
-  imageLabel: string;
   titles: Record<string, string>;
+  details: Record<
+    string,
+    {
+      description: string;
+      ctaLabel: string;
+    }
+  >;
 };
 
 export type RosterContent = {

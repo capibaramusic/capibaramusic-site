@@ -36,7 +36,7 @@ const areas = {
         "Venue programming app",
         "Pilots with organisations",
       ],
-      cta: { label: "Try our apps" },
+      cta: { label: "Try our apps (Coming soon)" },
     },
   ],
 } satisfies AreasContent;
