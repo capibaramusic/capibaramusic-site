@@ -27,13 +27,13 @@ export default function Areas() {
   return (
     <section
       id="areas-de-accion"
-      className="px-[8%] py-20 md:py-24 lg:py-28"
+      className="px-8 py-10 min-[769px]:px-[8%] min-[769px]:py-24 lg:py-28"
     >
       <p className="type-section-label mb-[18px] text-[#888]">
         {areas.label}
       </p>
 
-      <h2 className="type-section-heading mb-14 md:mb-16">
+      <h2 className="type-section-heading mb-10 min-[769px]:mb-16">
         {areas.heading[0]}
         <br />
         {areas.heading[1]}
@@ -41,7 +41,7 @@ export default function Areas() {
 
       <div
         ref={areasGridRef}
-        className="grid grid-cols-1 items-start border-t border-l border-[#DDD] md:grid-cols-2 lg:grid-cols-4"
+        className="grid grid-cols-1 items-start border-t border-l border-[#DDD] min-[769px]:grid-cols-2 lg:grid-cols-4"
       >
         {areas.items.map((area, index) => {
           const isExpanded = activeArea === index;
@@ -58,17 +58,17 @@ export default function Areas() {
                     current === index ? null : index,
                   )
                 }
-                className="relative flex h-44 w-full cursor-pointer flex-col border-0 border-r border-b border-[#DDD] bg-transparent p-6 text-left text-black focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#1E1E1E] md:h-48 md:p-7 lg:p-8"
+                className="relative flex h-40 w-full cursor-pointer flex-col border-0 border-r border-b border-[#DDD] bg-transparent p-5 text-left text-black focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#1E1E1E] min-[769px]:h-48 min-[769px]:p-7 lg:p-8"
               >
                 <span className="type-index text-[#999]">0{index + 1}</span>
 
-                <span className="type-item-title mt-6 max-w-[85%] font-[var(--type-weight-bold)]">
+                <span className="type-item-title mt-5 max-w-[85%] font-[var(--type-weight-bold)] min-[769px]:mt-6">
                   {area.title}
                 </span>
 
                 <span
                   aria-hidden="true"
-                  className="type-disclosure-mark absolute right-6 bottom-5 md:right-7 md:bottom-6 lg:right-8"
+                  className="type-disclosure-mark absolute right-5 bottom-4 min-[769px]:right-7 min-[769px]:bottom-6 lg:right-8"
                 >
                   {isExpanded ? "−" : "+"}
                 </span>
@@ -86,7 +86,7 @@ export default function Areas() {
                 <div className="min-h-0 overflow-hidden">
                   <div
                     id={panelId}
-                    className="border-r border-b border-l border-[#DDD] bg-[#F7F7F4] p-6 md:p-7 lg:p-8"
+                    className="border-r border-b border-l border-[#DDD] bg-[#F7F7F4] p-5 min-[769px]:p-7 lg:p-8"
                   >
                     {area.status && (
                       <p className="type-section-label mt-0 mb-6 text-[#888]">
@@ -100,7 +100,7 @@ export default function Areas() {
                       ))}
                     </ul>
 
-                    <div className="type-text-link mt-10 font-[var(--type-weight-semibold)]">
+                    <div className="type-text-link mt-7 font-[var(--type-weight-semibold)] min-[769px]:mt-10">
                       {area.cta.href ? (
                         <a
                           href={area.cta.href}

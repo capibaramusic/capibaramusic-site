@@ -9,9 +9,9 @@ export default function About() {
   return (
     <section
       id="quienes-somos"
-      className="px-[8%] py-20 md:py-24 lg:py-28"
+      className="px-8 py-10 min-[769px]:px-[8%] min-[769px]:py-24 lg:py-28"
     >
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)] lg:gap-20">
+      <div className="grid grid-cols-1 gap-8 min-[769px]:gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)] lg:gap-20">
         <div>
           <p className="type-section-label mb-[18px] text-[#888]">
             {about.label}
@@ -22,14 +22,14 @@ export default function About() {
           </h2>
         </div>
 
-        <div className="max-w-xl lg:pt-8">
+        <div className="w-full max-w-xl lg:pt-8">
           <p className="type-body m-0 text-[#333]">{about.paragraphs[0]}</p>
 
-          <p className="type-body-small mt-7 mb-0 text-[#555]">
+          <p className="type-body-small mt-5 mb-0 text-[#555] min-[769px]:mt-7">
             {about.paragraphs[1]}
           </p>
 
-          <div className="type-text-link mt-9 flex flex-wrap gap-x-7 gap-y-3 font-[var(--type-weight-semibold)]">
+          <div className="type-text-link mt-7 flex flex-wrap gap-x-5 gap-y-3 font-[var(--type-weight-semibold)] min-[769px]:mt-9 min-[769px]:gap-x-7">
             {about.ctas.map((cta) => (
               <a
                 key={cta.href}
@@ -43,17 +43,17 @@ export default function About() {
         </div>
       </div>
 
-      <div className="mt-16 grid grid-cols-1 border-t border-l border-[#DDD] md:mt-20 md:grid-cols-3">
+      <div className="mt-10 grid grid-cols-1 border-t border-l border-[#DDD] min-[769px]:mt-20 min-[769px]:grid-cols-3">
         {about.capabilities.map((capability) => (
           <article
             key={capability.title}
-            className="border-r border-b border-[#DDD] p-6 md:p-7 lg:p-8"
+            className="border-r border-b border-[#DDD] p-5 min-[769px]:p-7 lg:p-8"
           >
             <h3 className="type-item-title m-0 font-[var(--type-weight-bold)] text-black">
               {capability.title}
             </h3>
 
-            <p className="type-body-small mt-6 mb-0 text-[#555]">
+            <p className="type-body-small mt-4 mb-0 text-[#555] min-[769px]:mt-6">
               {capability.description}
             </p>
           </article>

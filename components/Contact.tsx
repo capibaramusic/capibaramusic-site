@@ -9,7 +9,7 @@ export default function Contact() {
   return (
     <section
       id="contacto"
-      className="grid grid-cols-1 items-center gap-10 border-t border-[#DDD] px-[8%] py-12 md:grid-cols-2 md:gap-20 md:py-14 lg:py-16"
+      className="grid grid-cols-1 items-center gap-7 border-t border-[#DDD] px-8 pt-10 pb-8 min-[769px]:grid-cols-2 min-[769px]:gap-20 min-[769px]:px-[8%] min-[769px]:py-14 lg:py-16"
     >
       <div>
         <p
@@ -34,12 +34,12 @@ export default function Contact() {
         </h2>
       </div>
 
-      <div className="flex flex-col items-start gap-5">
+      <div className="flex min-w-0 flex-col items-start gap-4 min-[769px]:gap-5">
         {contact.emails.map((email) => (
-          <div key={email.href}>
+          <div key={email.href} className="min-w-0 max-w-full">
             <h3 className="type-item-title mb-1.5">{email.area}:</h3>
             <a
-              className="type-text-link no-underline underline-offset-4 hover:underline focus-visible:underline"
+              className="type-text-link [overflow-wrap:anywhere] no-underline underline-offset-4 hover:underline focus-visible:underline"
               href={email.href}
             >
               {email.label}

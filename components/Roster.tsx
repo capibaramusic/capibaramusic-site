@@ -67,6 +67,7 @@ type RosterModuleProps = {
   onOpen: () => void;
   onClose: () => void;
   panelRef?: Ref<HTMLDivElement>;
+  panelIdPrefix?: string;
   triggerRef: RefCallback<HTMLButtonElement>;
 };
 
@@ -78,8 +79,11 @@ function RosterModule({
   onOpen,
   onClose,
   panelRef,
+  panelIdPrefix = "roster-panel",
   triggerRef,
 }: RosterModuleProps) {
+  const panelId = `${panelIdPrefix}-${project.slug}`;
+
   return (
     <article className="w-full shrink-0 border border-[#C9C9C4] bg-[#D9D9D4] text-[#1E1E1E]">
       <button
@@ -87,7 +91,7 @@ function RosterModule({
         type="button"
         aria-label={`${openLabel} ${project.title}`}
         aria-expanded={isExpanded}
-        aria-controls={`roster-panel-${project.slug}`}
+        aria-controls={panelId}
         onClick={onOpen}
         className="group relative block aspect-square w-full cursor-pointer overflow-hidden border-0 bg-[#D9D9D4] p-0 text-left"
       >
@@ -95,11 +99,11 @@ function RosterModule({
           src={project.image.src}
           alt={project.image.alt}
           fill
-          sizes="(max-width: 720px) 240px, 32vw"
+          sizes="(max-width: 768px) calc(100vw - 32px), 32vw"
           className="object-cover"
         />
 
-        <span className="absolute inset-0 flex flex-col items-center justify-center bg-[#D7FF3F]/75 p-4 text-center opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 md:p-6">
+        <span className="absolute inset-0 flex flex-col items-center justify-center bg-[#D7FF3F]/75 p-4 text-center opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 min-[769px]:p-6">
           <HoverTitle project={project} />
           <span
             className="mt-5 block max-w-full text-center text-[clamp(0.75rem,1vw,0.95rem)] leading-[1.25] font-[var(--type-weight-semibold)] tracking-[0.04em] text-balance text-black uppercase"
@@ -121,8 +125,8 @@ function RosterModule({
         <div className="min-h-0 overflow-hidden">
           <div
             ref={panelRef}
-            id={`roster-panel-${project.slug}`}
-            className="relative border-t border-[#C9C9C4] bg-[#F7F7F4] p-6 md:p-8"
+            id={panelId}
+            className="relative border-t border-[#C9C9C4] bg-[#F7F7F4] p-5 min-[769px]:p-8"
           >
             <button
               type="button"
@@ -179,7 +183,8 @@ export default function Roster() {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const scrollPosition = useRef(0);
   const closeTimer = useRef<number | null>(null);
-  const expandedPanelRef = useRef<HTMLDivElement>(null);
+  const expandedMobilePanelRef = useRef<HTMLDivElement>(null);
+  const expandedDesktopPanelRef = useRef<HTMLDivElement>(null);
   const projectTriggers = useRef(new Map<string, HTMLButtonElement>());
   const projects: RosterProject[] = artists.map((artist) => {
     const localizedContent = artist.content[locale as ArtistLocale];
@@ -219,6 +224,7 @@ export default function Roster() {
   const closeProject = useCallback((
     projectSlug: string,
     restoreTriggerFocus = true,
+    triggerKey = projectSlug,
   ) => {
     const previousScrollPosition = scrollPosition.current;
 
@@ -230,7 +236,7 @@ export default function Roster() {
 
     closeTimer.current = window.setTimeout(() => {
       projectTriggers.current
-        .get(projectSlug)
+        .get(triggerKey)
         ?.focus({ preventScroll: true });
       window.scrollTo({ top: previousScrollPosition, behavior: "auto" });
     }, 250);
@@ -248,7 +254,8 @@ export default function Roster() {
 
       if (
         target instanceof Node &&
-        expandedPanelRef.current?.contains(target)
+        (expandedMobilePanelRef.current?.contains(target) ||
+          expandedDesktopPanelRef.current?.contains(target))
       ) {
         return;
       }
@@ -277,13 +284,61 @@ export default function Roster() {
   return (
     <section
       id="roster"
-      className="overflow-hidden border-t border-[#DDD] px-[2%] py-20 md:py-24 lg:py-28"
+      className="max-w-full border-t border-[#DDD] px-4 py-12 min-[769px]:px-[2%] min-[769px]:py-24 lg:py-28"
     >
-      <h2 className="type-section-heading mb-14 px-[6%] md:mb-16">
+      <h2 className="type-section-heading mb-10 px-4 min-[769px]:mb-16 min-[769px]:px-[6%]">
         {roster.heading}
       </h2>
 
-      <div className="overflow-x-auto">
+      <div
+        aria-hidden="true"
+        className="type-disclosure-mark mb-2 px-4 text-right min-[769px]:hidden"
+      >
+        →
+      </div>
+
+      <div className="mobile-snap-carousel w-full snap-x snap-mandatory overflow-x-auto min-[769px]:hidden">
+        <div className="flex w-full items-start">
+          {projects.map((project) => {
+            const triggerKey = `mobile:${project.slug}`;
+
+            return (
+              <div
+                key={project.slug}
+                className="w-full min-w-0 flex-none snap-center"
+              >
+                <RosterModule
+                  project={project}
+                  isExpanded={
+                    isPanelOpen && selectedSlug === project.slug
+                  }
+                  openLabel={roster.openLabel}
+                  closeLabel={roster.closeLabel}
+                  onOpen={() => openProject(project.slug)}
+                  onClose={() =>
+                    closeProject(project.slug, true, triggerKey)
+                  }
+                  panelRef={
+                    isPanelOpen && selectedSlug === project.slug
+                      ? expandedMobilePanelRef
+                      : undefined
+                  }
+                  panelIdPrefix="mobile-roster-panel"
+                  triggerRef={(element) => {
+                    if (element) {
+                      projectTriggers.current.set(triggerKey, element);
+                    } else {
+                      projectTriggers.current.delete(triggerKey);
+                    }
+                  }}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="hidden overflow-x-auto min-[769px]:block">
         <div className="flex min-w-[720px] items-start gap-0">
           {columns.map((column, columnIndex) => (
             <div
@@ -292,7 +347,10 @@ export default function Roster() {
                 columnIndex === 1 ? "pt-[4%]" : ""
               }`}
             >
-              {column.map((project) => (
+              {column.map((project) => {
+                const triggerKey = `desktop:${project.slug}`;
+
+                return (
                 <RosterModule
                   key={project.slug}
                   project={project}
@@ -302,21 +360,24 @@ export default function Roster() {
                   openLabel={roster.openLabel}
                   closeLabel={roster.closeLabel}
                   onOpen={() => openProject(project.slug)}
-                  onClose={() => closeProject(project.slug)}
+                  onClose={() =>
+                    closeProject(project.slug, true, triggerKey)
+                  }
                   panelRef={
                     isPanelOpen && selectedSlug === project.slug
-                      ? expandedPanelRef
+                      ? expandedDesktopPanelRef
                       : undefined
                   }
                   triggerRef={(element) => {
                     if (element) {
-                      projectTriggers.current.set(project.slug, element);
+                      projectTriggers.current.set(triggerKey, element);
                     } else {
-                      projectTriggers.current.delete(project.slug);
+                      projectTriggers.current.delete(triggerKey);
                     }
                   }}
                 />
-              ))}
+                );
+              })}
             </div>
           ))}
         </div>

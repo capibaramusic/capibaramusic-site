@@ -96,7 +96,7 @@ export default function NavigationOverlay({
           onClose();
         }
       }}
-      className={`fixed inset-0 z-50 flex items-center bg-[#F7F7F4] px-[7%] py-20 transition-[opacity,visibility] duration-300 ease-out ${
+      className={`fixed inset-0 z-50 flex h-[100dvh] max-w-full items-center overflow-y-auto bg-[#F7F7F4] px-8 py-20 transition-[opacity,visibility] duration-300 ease-out min-[769px]:px-[7%] ${
         isOpen
           ? "visible pointer-events-auto opacity-100"
           : "invisible pointer-events-none opacity-0"
@@ -108,7 +108,7 @@ export default function NavigationOverlay({
           isOpen ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
         }`}
       >
-        <ul className="m-0 flex list-none flex-col gap-4 p-0 md:gap-5">
+        <ul className="m-0 flex list-none flex-col gap-3 p-0 min-[769px]:gap-5">
           {navigation.items
             .filter(
               (item) => item.target !== "news" || siteFeatures.news,

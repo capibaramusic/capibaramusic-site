@@ -6,7 +6,7 @@ import { useLocale } from "./LocaleProvider";
 type NewsItem = NewsContent["items"][number];
 
 const moduleClassName =
-  "h-44 min-w-0 border-r border-b border-[#DDD] bg-[#F7F7F4] p-5 text-black transition-colors duration-200 hover:bg-[#D7FF3F] md:h-48 md:p-6";
+  "h-44 min-w-0 border-r border-b border-[#DDD] bg-[#F7F7F4] p-5 text-black transition-colors duration-200 hover:bg-[#D7FF3F] min-[769px]:h-48 min-[769px]:p-6";
 
 function NewsBox({ item }: { item: NewsItem }) {
   const content = (
@@ -58,15 +58,15 @@ export default function News() {
   return (
     <section
       id="news"
-      className="border-t border-[#DDD] px-[8%] py-14 md:py-16 lg:py-20"
+      className="border-t border-[#DDD] px-8 py-10 min-[769px]:px-[8%] min-[769px]:py-16 lg:py-20"
     >
       <p className="type-section-label text-[#888]">{news.label}</p>
 
-      <h2 className="type-section-heading mt-5 mb-10 md:mb-12">
+      <h2 className="type-section-heading mt-5 mb-10 min-[769px]:mb-12">
         {news.heading}
       </h2>
 
-      <div className="grid grid-cols-1 border-t border-l border-[#DDD] md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 border-t border-l border-[#DDD] min-[769px]:grid-cols-2 lg:grid-cols-4">
         {news.items.map((item) => (
           <NewsBox key={item.id} item={item} />
         ))}
