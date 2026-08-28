@@ -6,7 +6,6 @@ import Projects from "../components/Projects";
 import News from "../components/News";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
-import { siteFeatures } from "../config/siteFeatures";
 
 export default function Home() {
   return (
@@ -21,7 +20,7 @@ export default function Home() {
       <Areas />
       <Roster />
       <Projects />
-      {siteFeatures.news && <News />}
+      <News />
       <Contact />
       <Footer />
     </main>

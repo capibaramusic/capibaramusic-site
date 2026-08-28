@@ -1,59 +1,16 @@
 "use client";
 
-import type { NewsContent } from "../content/types";
+import Image from "next/image";
+import Link from "next/link";
+import { newsArticles } from "../content/news/articles";
 import { useLocale } from "./LocaleProvider";
 
-type NewsItem = NewsContent["items"][number];
-
-const moduleClassName =
-  "h-44 min-w-0 border-r border-b border-[#DDD] bg-[#F7F7F4] p-5 text-black transition-colors duration-200 hover:bg-[#D7FF3F] min-[769px]:h-48 min-[769px]:p-6";
-
-function NewsBox({ item }: { item: NewsItem }) {
-  const content = (
-    <>
-      <span className="type-index text-[#888]">{item.date}</span>
-      <h3 className="mt-5 text-[clamp(1.1rem,1.3vw,1.4rem)] leading-[1.12] font-[var(--type-weight-bold)] tracking-[-0.02em] text-black">
-        {item.title}
-      </h3>
-    </>
-  );
-  const className = `${moduleClassName} flex flex-col`;
-
-  if (item.href) {
-    return (
-      <a href={item.href} className={className}>
-        {content}
-      </a>
-    );
-  }
-
-  return <article className={className}>{content}</article>;
-}
-
-function AllNewsLink({ cta }: { cta: NewsContent["allNewsCta"] }) {
-  const content = (
-    <>
-      <span>{cta.label}</span>
-      <span aria-hidden="true">+</span>
-    </>
-  );
-  const className =
-    "type-text-link inline-flex items-center gap-2 text-black underline decoration-1 underline-offset-4";
-
-  if (cta.href) {
-    return (
-      <a href={cta.href} className={className}>
-        {content}
-      </a>
-    );
-  }
-
-  return <span className={className}>{content}</span>;
-}
-
 export default function News() {
-  const { content } = useLocale();
+  const { content, locale } = useLocale();
   const { news } = content;
+  const orderedArticles = [...newsArticles].sort((a, b) =>
+    b.publishedAt.localeCompare(a.publishedAt),
+  );
 
   return (
     <section
@@ -67,13 +24,39 @@ export default function News() {
       </h2>
 
       <div className="grid grid-cols-1 border-t border-l border-[#DDD] min-[769px]:grid-cols-2 lg:grid-cols-4">
-        {news.items.map((item) => (
-          <NewsBox key={item.id} item={item} />
-        ))}
-      </div>
+        {orderedArticles.map((article) => {
+          const localizedArticle = article.translations[locale];
 
-      <div className="mt-6">
-        <AllNewsLink cta={news.allNewsCta} />
+          return (
+            <Link
+              key={article.slug}
+              href={`/news/${article.slug}`}
+              className="group flex min-w-0 flex-col border-r border-b border-[#DDD] bg-[#F7F7F4] text-black transition-colors duration-200 hover:bg-[#D7FF3F]"
+            >
+              <Image
+                src={article.coverImage.src}
+                alt=""
+                width={article.coverImage.width}
+                height={article.coverImage.height}
+                sizes="(min-width: 1024px) 21vw, (min-width: 769px) 42vw, 100vw"
+                className="block aspect-[4/3] w-full object-cover"
+              />
+
+              <div className="flex flex-1 flex-col p-5 min-[769px]:p-6">
+                <span className="type-index text-[#888]">{article.date}</span>
+                <h3 className="mt-5 text-[clamp(1.15rem,1.5vw,1.4rem)] leading-[1.12] font-[var(--type-weight-bold)] tracking-[-0.02em] text-black">
+                  {localizedArticle.title}
+                </h3>
+                <p className="type-body-small mt-4 line-clamp-3 text-[#666]">
+                  {localizedArticle.excerpt}
+                </p>
+                <span className="type-text-link mt-6 inline-flex items-center gap-2 self-start text-black underline decoration-1 underline-offset-4">
+                  {news.readMore} <span aria-hidden="true">+</span>
+                </span>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

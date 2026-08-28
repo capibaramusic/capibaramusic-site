@@ -67,16 +67,8 @@ export type RosterContent = {
 export type NewsContent = {
   label: string;
   heading: string;
-  items: ReadonlyArray<{
-    id: string;
-    date: string;
-    title: string;
-    href: string | null;
-  }>;
-  allNewsCta: {
-    label: string;
-    href: string | null;
-  };
+  readMore: string;
+  backToNews: string;
 };
 
 export type ContactContent = {

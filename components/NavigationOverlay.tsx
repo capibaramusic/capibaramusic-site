@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, type RefObject } from "react";
-import { siteFeatures } from "../config/siteFeatures";
 import { useLocale } from "./LocaleProvider";
 
 type NavigationOverlayProps = {
@@ -109,11 +108,7 @@ export default function NavigationOverlay({
         }`}
       >
         <ul className="m-0 flex list-none flex-col gap-3 p-0 min-[769px]:gap-5">
-          {navigation.items
-            .filter(
-              (item) => item.target !== "news" || siteFeatures.news,
-            )
-            .map((item) => (
+          {navigation.items.map((item) => (
             <li key={item.target}>
               <a
                 href={`#${item.target}`}
@@ -126,7 +121,7 @@ export default function NavigationOverlay({
                 {item.label}
               </a>
             </li>
-            ))}
+          ))}
         </ul>
       </nav>
     </div>
