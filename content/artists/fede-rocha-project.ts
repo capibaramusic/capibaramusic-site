@@ -6,6 +6,7 @@ import type { Artist } from "./types";
 
 export const fedeRochaProject: Artist = {
   slug: "fede-rocha-project",
+  bookingTerritory: { es: "Todo el mundo", en: "Worldwide" },
   name: "FEDE ROCHA PROJECT",
   image: "/assets/artists/fede-rocha-project/cover.png",
   content: {

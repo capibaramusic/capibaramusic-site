@@ -6,6 +6,7 @@ import type { Artist } from "./types";
 
 export const calleMambo: Artist = {
   slug: "calle-mambo",
+  bookingTerritory: { es: "España", en: "Spain" },
   name: "CALLE MAMBO",
   image: "/assets/artists/calle-mambo/cover.jpg",
   content: {

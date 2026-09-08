@@ -20,6 +20,7 @@ type RosterProject = {
   title: string;
   headline: string;
   genres: readonly string[];
+  bookingTerritory?: string;
   image: {
     src: string;
     alt: string;
@@ -145,6 +146,11 @@ function RosterModule({
             >
               {project.genres.join(" · ")}
             </p>
+            {project.bookingTerritory && (
+              <p className="mt-2 mb-0 text-xs leading-relaxed font-normal text-[#666]">
+                Booking: {project.bookingTerritory}
+              </p>
+            )}
             <p className="type-body-small mt-7 mb-0">
               {project.description}
             </p>
@@ -198,6 +204,7 @@ export default function Roster() {
       title: artist.name,
       headline: localizedContent.headline,
       genres: localizedContent.genres,
+      bookingTerritory: artist.bookingTerritory?.[locale as ArtistLocale],
       image: {
         src: artist.image,
         alt: localizedContent.imageAlt,

@@ -6,6 +6,7 @@ import type { Artist } from "./types";
 
 export const choloChicha: Artist = {
   slug: "cholo-chicha",
+  bookingTerritory: { es: "Todo el mundo", en: "Worldwide" },
   name: "CHOLO CHICHA",
   image: "/assets/artists/cholo-chicha/cover.jpg",
   content: {

@@ -2,7 +2,6 @@ import { calleMambo } from "./calle-mambo";
 import { choloChicha } from "./cholo-chicha";
 import { fedeRochaProject } from "./fede-rocha-project";
 import { kumbiaBoruka } from "./kumbia-boruka";
-import { laDameBlanche } from "./la-dame-blanche";
 import { niemNitai } from "./niem-nitai";
 
 // Artistas activos y orden de aparición en el Roster.
@@ -10,7 +9,6 @@ import { niemNitai } from "./niem-nitai";
 export const artists = [
   choloChicha,
   calleMambo,
-  laDameBlanche,
   kumbiaBoruka,
   fedeRochaProject,
   niemNitai,

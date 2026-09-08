@@ -6,6 +6,7 @@ import type { Artist } from "./types";
 
 export const niemNitai: Artist = {
   slug: "niem-nitai",
+  bookingTerritory: { es: "Todo el mundo", en: "Worldwide" },
   name: "NIEM NITAI",
   image: "/assets/artists/niem-nitai/cover.jpg",
   content: {

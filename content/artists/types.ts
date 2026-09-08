@@ -18,6 +18,7 @@ export type Artist = {
   slug: string;
   name: string;
   image: string;
+  bookingTerritory?: Record<ArtistLocale, string>;
   content: Record<ArtistLocale, ArtistLocalizedContent>;
   links: readonly ArtistLink[];
 };

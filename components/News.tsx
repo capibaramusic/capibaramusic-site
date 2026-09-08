@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { newsArticles } from "../content/news/articles";
 import { useLocale } from "./LocaleProvider";
+import NewsImage from "./NewsImage";
 
 export default function News() {
   const { content, locale } = useLocale();
@@ -33,13 +33,14 @@ export default function News() {
               href={`/news/${article.slug}`}
               className="group flex min-w-0 flex-col border-r border-b border-[#DDD] bg-[#F7F7F4] text-black transition-colors duration-200 hover:bg-[#D7FF3F]"
             >
-              <Image
+              <NewsImage
                 src={article.coverImage.src}
-                alt=""
                 width={article.coverImage.width}
                 height={article.coverImage.height}
+                label={article.coverImage.label}
                 sizes="(min-width: 1024px) 21vw, (min-width: 769px) 42vw, 100vw"
                 className="block aspect-[4/3] w-full object-cover"
+                placeholderClassName="aspect-[4/3] w-full"
               />
 
               <div className="flex flex-1 flex-col p-5 min-[769px]:p-6">

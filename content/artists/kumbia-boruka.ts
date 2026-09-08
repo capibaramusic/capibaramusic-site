@@ -6,6 +6,7 @@ import type { Artist } from "./types";
 
 export const kumbiaBoruka: Artist = {
   slug: "kumbia-boruka",
+  bookingTerritory: { es: "España", en: "Spain" },
   name: "KUMBIA BORUKA",
   image: "/assets/artists/kumbia-boruka/cover.jpg",
   content: {
