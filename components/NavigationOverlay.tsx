@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type RefObject } from "react";
+import { NEWS_VISIBLE } from "../content";
 import { useLocale } from "./LocaleProvider";
 
 type NavigationOverlayProps = {
@@ -108,7 +109,7 @@ export default function NavigationOverlay({
         }`}
       >
         <ul className="m-0 flex list-none flex-col gap-3 p-0 min-[769px]:gap-5">
-          {navigation.items.map((item) => (
+          {navigation.items.filter((item) => NEWS_VISIBLE || item.target !== "news").map((item) => (
             <li key={item.target}>
               <a
                 href={`#${item.target}`}

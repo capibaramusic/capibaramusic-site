@@ -1,6 +1,9 @@
 import en from "./en";
 import es from "./es";
 
+// Controls discovery on Home and Navigation; direct article routes stay available.
+export const NEWS_VISIBLE = false;
+
 export const contentByLocale = {
   en,
   es,

@@ -6,6 +6,7 @@ import Projects from "../components/Projects";
 import News from "../components/News";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
+import { NEWS_VISIBLE } from "../content";
 
 export default function Home() {
   return (
@@ -20,7 +21,7 @@ export default function Home() {
       <Areas />
       <Roster />
       <Projects />
-      <News />
+      {NEWS_VISIBLE && <News />}
       <Contact />
       <Footer />
     </main>
